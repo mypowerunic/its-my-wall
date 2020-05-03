@@ -1,0 +1,11 @@
+{% extends 'testapp/base.html' %}
+{% block title_block %}bharath blog page{% endblock %}
+{% block content %}
+<h1>bharath blog</h1>
+{% for x in post %}
+<a href="{{x.get_absolute_url}}"><h2>{{x.title}}</h2></a>
+<p id="date">published on {{x.publish}} by {{x.author|title}}</p>
+{{x.body|truncatewords:30|linebreaks}}
+{% endfor %}
+{% include 'testapp/pagenation.html' with page=post %}
+{% endblock %}

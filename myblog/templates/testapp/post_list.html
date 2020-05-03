@@ -1,0 +1,21 @@
+{% extends 'testapp/base.html' %}
+{% block title_block %}bharath blog page{% endblock %}
+{% block content %}
+<h1>bharath blog</h1>
+{% if tag %}
+<h2>Posts tagged with '{{tag.name}}'</h2>
+{% endif %}
+{% for x in post %}
+<a href="{{x.get_absolute_url}}"><h2>{{x.title}}</h2></a>
+<p id="date">published on {{x.publish}} by {{x.author|title}}</p>
+<p id="tag">Tags:
+  {% for tag in x.tags.all %}
+
+   <a href="{%url 'post_list_tag_name' tag.slug%}" class="btn btn-info" >{{tag.name}}</a>
+
+  {% endfor %}
+</p>
+{{x.body|truncatewords:30|linebreaks}}
+{% endfor %}
+{% include 'testapp/pagenation.html' with page=post %}
+{% endblock %}
